@@ -1,0 +1,43 @@
+@model IEnumerable<InventoryMVC.Models.ViewModels.CategoryVM>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h2 class="mb-3">Categories</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add Category</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th width="180">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No categories found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

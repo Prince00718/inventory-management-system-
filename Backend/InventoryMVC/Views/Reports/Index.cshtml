@@ -1,0 +1,103 @@
+@model InventoryMVC.Models.ViewModels.ReportVM
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="container-fluid">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">📊 Reports Dashboard</h2>
+        <span class="text-muted">Summary of inventory performance</span>
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center h-100 py-3">
+                <h6 class="text-muted">Total Products</h6>
+                <h3 class="fw-bold">@Model.TotalProducts</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center h-100 py-3">
+                <h6 class="text-muted">Total Categories</h6>
+                <h3 class="fw-bold">@Model.TotalCategories</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center h-100 py-3">
+                <h6 class="text-muted">Total Sales</h6>
+                <h3 class="fw-bold">@Model.TotalSales</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center h-100 py-3">
+                <h6 class="text-muted">Total Purchases</h6>
+                <h3 class="fw-bold">@Model.TotalPurchases</h3>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FINANCIAL SECTION -->
+    <div class="card shadow-sm border-0">
+
+        <!-- CARD HEADER -->
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Financial Summary</h5>
+
+            <!-- EXPORT BUTTONS -->
+            <div>
+                <a asp-action="ExportPdf" class="btn btn-danger btn-sm me-2">
+                    📄 PDF
+                </a>
+
+                <a asp-action="ExportExcel" class="btn btn-success btn-sm">
+                    📊 Excel
+                </a>
+            </div>
+        </div>
+
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 text-center align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-start ps-4">Metric</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="fw-semibold text-start ps-4">Revenue</td>
+                        <td class="text-success fw-bold">₹ @Model.TotalRevenue</td>
+                    </tr>
+
+                    <tr>
+                        <td class="fw-semibold text-start ps-4">Purchase Cost</td>
+                        <td class="text-danger fw-bold">₹ @Model.TotalPurchaseCost</td>
+                    </tr>
+
+                    <tr class="table-primary">
+                        <td class="fw-bold text-start ps-4">Profit</td>
+                        <td class="fw-bold">₹ @Model.Profit</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>

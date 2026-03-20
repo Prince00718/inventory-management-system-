@@ -1,0 +1,90 @@
+@model InventoryMVC.Models.ViewModels.PurchaseVM
+
+@{
+    ViewData["Title"] = "Add Purchase";
+}
+
+<style>
+    /* Smooth page animation */
+    .fade-in {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Card hover effect */
+    .card-hover:hover {
+        transform: scale(1.01);
+        transition: 0.2s;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<div class="container mt-4 fade-in">
+
+    <!-- Page Title -->
+    <h2 class="mb-4 fw-bold text-primary">
+        <i class="fas fa-arrow-down"></i> Add Purchase
+    </h2>
+
+    <!-- Card -->
+    <div class="card shadow card-hover">
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                <!-- Product Dropdown -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Select Product</label>
+
+                    <select asp-for="ProductId" class="form-select"
+                            asp-items="@(new SelectList(ViewBag.Products, "Id", "Name"))">
+                        <option value="">-- Choose Product --</option>
+                    </select>
+
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+
+                <!-- Quantity -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Quantity</label>
+
+                    <input asp-for="Quantity" class="form-control" placeholder="Enter quantity" />
+
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Save Purchase
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

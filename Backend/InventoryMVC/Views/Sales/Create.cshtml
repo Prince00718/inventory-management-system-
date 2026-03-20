@@ -1,0 +1,28 @@
+@model InventoryMVC.Models.ViewModels.SaleVM
+
+<h2>Create Sale</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label>Product</label>
+        <select asp-for="ProductId" class="form-control">
+            <option value="">-- Select Product --</option>
+
+            @if (ViewBag.Products != null)
+            {
+                foreach (var p in ViewBag.Products)
+                {
+                    <option value="@p.Id">@p.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Quantity</label>
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Sale</button>
+</form>

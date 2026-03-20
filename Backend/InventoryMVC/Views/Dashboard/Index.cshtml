@@ -1,0 +1,114 @@
+@model InventoryMVC.Models.ViewModels.DashboardVM
+
+<h2 class="mb-4">Welcome Admin 👋</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card text-white bg-info shadow dashboard-card">
+            <div class="card-body text-center">
+                <h1>@Model.TotalProducts</h1>
+                <p>Total Products</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success shadow dashboard-card">
+            <div class="card-body text-center">
+                <h1>@Model.TotalSales</h1>
+                <p>Total Sales</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-dark bg-warning shadow dashboard-card">
+            <div class="card-body text-center">
+                <h1>@Model.TotalPurchases</h1>
+                <p>Total Purchases</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-danger shadow dashboard-card">
+            <div class="card-body text-center">
+                <h1>@Model.LowStock</h1>
+                <p>Low Stock</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5" />
+
+<div class="row">
+
+    <!-- Profit Chart -->
+    <div class="col-md-6">
+        <div class="card shadow p-3">
+            <h5 class="text-center">Profit Overview</h5>
+            <canvas id="profitChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Revenue vs Purchase -->
+    <div class="col-md-6">
+        <div class="card shadow p-3">
+            <h5 class="text-center">Revenue vs Purchase</h5>
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .dashboard-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+@section Scripts {
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Profit Pie Chart
+        new Chart(document.getElementById('profitChart'), {
+        type: 'doughnut',
+        data: {
+        labels: ['Revenue', 'Purchase Cost', 'Profit'],
+        datasets: [{
+        data: [
+        @Model.Revenue,
+        @Model.PurchaseCost,
+        @Model.Profit
+        ]
+        }]
+        }
+        });
+
+        // Revenue vs Purchase Bar Chart
+        new Chart(document.getElementById('revenueChart'), {
+        type: 'bar',
+        data: {
+        labels: ['Revenue', 'Purchase Cost'],
+        datasets: [{
+        label: 'Amount',
+        data: [
+        @Model.Revenue,
+        @Model.PurchaseCost
+        ]
+        }]
+        }
+        });
+    </script>
+
+}
