@@ -13,7 +13,7 @@ UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-if __name__ == "__main__":
 
-    # Run backend on port 5001 (same as React API calls)
-    app.run(debug=True, port=5001)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render gives PORT
+    app.run(host="0.0.0.0", port=port)
