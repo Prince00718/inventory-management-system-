@@ -2,3 +2,4 @@ flask
 flask-cors
 gunicorn
 flask-sqlalchemy
+flask-jwt-extended
